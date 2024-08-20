@@ -1,0 +1,1 @@
+export { generateTripPlanService } from './trip-planner.service.js';
