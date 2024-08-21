@@ -9,16 +9,16 @@ export function adminAuth(req, res, next) {
         return res.status(401).send("Not authorized, token not available.");
     }
 
-    jwt.verify(token, jwtSecret, (err, decodedToken) => {
+    jwt.verify(token, jwtSecret, (err, user) => {
         if (err) {
             return res.status(401).send("Not authorized.");
         }
 
-        if (decodedToken.role !== "admin") {
-            console.log(decodedToken.role)
+        if (user.role !== "admin") {
             return res.status(401).send("Not authorized.");
         }
 
+        req.user = user;
         next();
     });
 }
@@ -32,15 +32,16 @@ export function userAuth(req, res, next) {
         return res.status(401).send("Not authorized, token not available.");
     }
 
-    jwt.verify(token, jwtSecret, (err, decodedToken) => {
+    jwt.verify(token, jwtSecret, (err, user) => {
         if (err) {
             return res.status(401).send("Not authorized.");
         }
 
-        if (decodedToken.role !== "user" && decodedToken.role !== "admin") {
+        if (user.role !== "user" && user.role !== "admin") {
             return res.status(401).send("Not authorized.");
         }
 
+        req.user = user;
         next();
     });
 }

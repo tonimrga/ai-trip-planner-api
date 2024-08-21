@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { registerUserRoute, loginUserRoute, logoutUserRoute } from "./index.js";
+import { registerUserRoute, loginUserRoute, logoutUserRoute } from "./auth.routes.js";
 
 const authRouter = Router();
 

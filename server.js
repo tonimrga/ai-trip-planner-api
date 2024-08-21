@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 import { connectDB } from "./config/index.js";
 import { authRouter, tripsRouter } from "./routes/index.js";
-import { adminAuth, userAuth } from "./middlewares/auth.middleware.js";
+import { adminAuth, userAuth } from "./middlewares/index.js";
 
 const app = express();
 app.use(express.json());

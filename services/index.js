@@ -1,2 +1,2 @@
-export * from './auth/index.js';
-export * from './trips/index.js';
+export * from './auth.services.js';
+export * from './trips.services.js';
