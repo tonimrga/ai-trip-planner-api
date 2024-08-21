@@ -1,6 +1,4 @@
-Node.js API with user auth implemented using JWT.
-
-MongoDB is used for the database.
+Node.js API for a trip planner application.
 
 To run the project run: 
 - npm install
