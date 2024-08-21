@@ -1,24 +1,18 @@
 import {
     generateTripPlanService,
     tripCreateService,
-    getAllUserTripsService,
-    getUserTripService,
-    deleteUserTripService,
+    getAllTripsService,
+    getTripService,
+    deleteTripService,
+    updateTripService,
 } from '../../services/index.js';
+import { prepareTripDataObject } from '../../utils/index.js';
 
 // POST /trips/plan
 export async function tripPlannerRoute(req, res) {
-    const { destination, startDate, endDate, numOfTravellers, modeOfTransport } = req.body;
-
     try {
-        const tripPlan = await generateTripPlanService({
-            destination,
-            startDate,
-            endDate,
-            numOfTravellers,
-            modeOfTransport
-        });
-
+        const tripData = prepareTripDataObject(req.body);
+        const tripPlan = await generateTripPlanService(tripData);
         res.send(tripPlan);
     } catch (error) {
         res.status(400).send(error);
@@ -27,27 +21,11 @@ export async function tripPlannerRoute(req, res) {
 
 // POST /trips
 export async function tripCreateRoute(req, res) {
-    const {
-        title,
-        itinerary,
-        destination,
-        startDate,
-        endDate,
-        numOfTravellers,
-        modeOfTransport
-    } = req.body;
-    const { id } = req.user;
-
     try {
+        const tripData = prepareTripDataObject(req.body);
         const trip = await tripCreateService({
-            title,
-            itinerary,
-            destination,
-            startDate,
-            endDate,
-            numOfTravellers,
-            modeOfTransport,
-            userId: id,
+            ...tripData,
+            userId: req.user.id,
         });
 
         res.send(trip);
@@ -57,9 +35,9 @@ export async function tripCreateRoute(req, res) {
 }
 
 // GET /trips
-export async function getAllUserTripsRoute(req, res) {
+export async function getAllTripsRoute(req, res) {
     try {
-        const trips = await getAllUserTripsService(req.user.id);
+        const trips = await getAllTripsService(req.user.id);
         res.send(trips);
     } catch (error) {
         res.status(400).send(error);
@@ -67,11 +45,11 @@ export async function getAllUserTripsRoute(req, res) {
 }
 
 // GET /trips/:id
-export async function getUserTripRoute(req, res) {
+export async function getTripRoute(req, res) {
     try {
         const tripId = req.params.id;
         const userId = req.user.id;
-        const trip = await getUserTripService(userId, tripId);
+        const trip = await getTripService(userId, tripId);
         res.send(trip);
     } catch (error) {
         res.status(400).send(error);
@@ -79,11 +57,25 @@ export async function getUserTripRoute(req, res) {
 }
 
 // DELETE /trips/:id
-export async function deleteUserTripRoute(req, res) {
+export async function deleteTripRoute(req, res) {
     try {
         const tripId = req.params.id;
         const userId = req.user.id;
-        const trip = await deleteUserTripService(userId, tripId);
+        const trip = await deleteTripService(userId, tripId);
+        res.send(trip);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+// PATCH /trips/:id
+export async function updateTripRoute(req, res) {
+    const tripId = req.params.id;
+    const userId = req.user.id;
+    const tripData = prepareTripDataObject(req.body);
+
+    try {
+        const trip = await updateTripService(userId, tripId, tripData);
         res.send(trip);
     } catch (error) {
         res.status(400).send(error);

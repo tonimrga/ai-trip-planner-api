@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 
 import { connectDB } from "./config/index.js";
 import { authRouter, tripsRouter } from "./routes/index.js";
-import { adminAuth, userAuth } from "./middlewares/index.js";
 
 const app = express();
 app.use(express.json());
@@ -19,8 +18,6 @@ app.use('/auth', authRouter);
 app.use('/trips', tripsRouter);
 
 // home route
-app.get("/user", userAuth, (req, res) => res.send("User Route"));
-app.get("/admin", adminAuth, (req, res) => res.send("Admin Route"));
 app.get("/", (req, res) => res.send("Public Route"));
 
 app.listen(process.env.PORT, () => console.log(`Server Connected to port ${process.env.PORT}`));

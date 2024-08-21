@@ -1,4 +1,5 @@
-export const generateOpenAIQuery = (tripData) => {
+// Function for generating a OpenAI query for a trip itinerary
+export function generateOpenAIQuery(tripData) {
     const {
         destination = '',
         startDate = '',
@@ -15,4 +16,27 @@ export const generateOpenAIQuery = (tripData) => {
     Mode of transportation is ${modeOfTransport}. 
     Can you create a day-by-day itinerary that includes must-see attractions, 
     recommended restaurants, and any side trips a person could take there?`
+};
+
+// Function for building a tripData object that is commonly used in trips service functions
+export function prepareTripDataObject(reqBody) {
+    const {
+        title,
+        itinerary,
+        destination,
+        startDate,
+        endDate,
+        numOfTravellers,
+        modeOfTransport
+    } = reqBody;
+
+    return {
+        title,
+        itinerary,
+        destination,
+        startDate,
+        endDate,
+        numOfTravellers,
+        modeOfTransport
+    }
 };

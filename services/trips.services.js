@@ -35,7 +35,7 @@ export async function tripCreateService(tripData) {
 }
 
 
-export async function getAllUserTripsService(userId) {
+export async function getAllTripsService(userId) {
     try {
         const trips = await Trip.find({ userId });
         return trips;
@@ -44,20 +44,30 @@ export async function getAllUserTripsService(userId) {
     }
 }
 
-export async function getUserTripService(userId, tripId) {
+export async function getTripService(userId, tripId) {
     try {
         const trip = await Trip.findOne({ userId, _id: tripId });
         return trip;
     } catch (err) {
-        throw 'Error getting trips.';
+        throw 'Error getting a trip.';
     }
 }
 
-export async function deleteUserTripService(userId, tripId) {
+export async function deleteTripService(userId, tripId) {
     try {
         const trip = await Trip.findOneAndDelete({ userId, _id: tripId });
         return trip;
     } catch (err) {
-        throw 'Error getting trips.';
+        throw 'Error deleting a trip.';
     }
 }
+
+export async function updateTripService(userId, tripId, tripData) {
+    try {
+        const trip = await Trip.findOneAndUpdate({ userId, _id: tripId }, tripData, { new: true });
+        return trip;
+    } catch (err) {
+        throw 'Error updating a trip..';
+    }
+}
+
