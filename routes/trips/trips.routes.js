@@ -1,6 +1,6 @@
 import {
     generateTripPlanService,
-    tripCreateService,
+    createTripService,
     getAllTripsService,
     getTripService,
     deleteTripService,
@@ -20,10 +20,10 @@ export async function tripPlannerRoute(req, res) {
 }
 
 // POST /trips
-export async function tripCreateRoute(req, res) {
+export async function createTripRoute(req, res) {
     try {
         const tripData = prepareTripDataObject(req.body);
-        const trip = await tripCreateService({
+        const trip = await createTripService({
             ...tripData,
             userId: req.user.id,
         });

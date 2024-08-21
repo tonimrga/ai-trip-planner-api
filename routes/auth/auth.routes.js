@@ -1,4 +1,4 @@
-import { JWT_TOKEN_MAX_AGE } from '../../consts/consts.js';
+import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts/consts.js';
 import { loginUserService, registerUserService } from '../../services/index.js';
 import { createJWTToken } from '../../utils/index.js';
 
@@ -13,7 +13,8 @@ export async function registerUserRoute(req, res) {
     try {
         const user = await registerUserService(username, password);
 
-        res.cookie("jwt", createJWTToken(user), {
+        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(user), {
+            secure: true,
             httpOnly: true,
             maxAge: JWT_TOKEN_MAX_AGE * 1000, // 3hrs in ms
         });
@@ -41,7 +42,8 @@ export async function loginUserRoute(req, res) {
             res.status(400).send("Username or password are incorrect.");
         }
 
-        res.cookie("jwt", createJWTToken(user), {
+        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(user), {
+            secure: true,
             httpOnly: true,
             maxAge: JWT_TOKEN_MAX_AGE * 1000, // 3hrs in ms
         });
@@ -56,6 +58,6 @@ export async function loginUserRoute(req, res) {
 
 // POST /auth/logout
 export function logoutUserRoute(req, res) {
-    res.cookie("jwt", "", { maxAge: "1" });
+    res.cookie(ACCESS_TOKEN_KEY, "", { maxAge: "1" });
     res.send('User logged out.');
 }

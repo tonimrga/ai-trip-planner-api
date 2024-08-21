@@ -25,7 +25,7 @@ export async function generateTripPlanService(tripData) {
     }
 }
 
-export async function tripCreateService(tripData) {
+export async function createTripService(tripData) {
     try {
         const trip = await Trip.create(tripData);
         return trip;
@@ -33,7 +33,6 @@ export async function tripCreateService(tripData) {
         throw 'Error creating a trip.';
     }
 }
-
 
 export async function getAllTripsService(userId) {
     try {
@@ -67,7 +66,6 @@ export async function updateTripService(userId, tripId, tripData) {
         const trip = await Trip.findOneAndUpdate({ userId, _id: tripId }, tripData, { new: true });
         return trip;
     } catch (err) {
-        throw 'Error updating a trip..';
+        throw 'Error updating a trip.';
     }
 }
-

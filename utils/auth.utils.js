@@ -26,12 +26,11 @@ export async function comparePasswords(password, userPassword) {
 
 // function for creating the JWT with user data in it
 export function createJWTToken(user) {
-    const jwtSecret = process.env.JWT_SECRET;
     const { _id: id, username, role } = user;
 
     const token = jwt.sign(
         { id, username, role },
-        jwtSecret,
+        process.env.JWT_SECRET,
         {
             expiresIn: JWT_TOKEN_MAX_AGE,
         }

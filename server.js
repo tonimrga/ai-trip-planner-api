@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 
 import { connectDB } from "./config/index.js";
-import { authRouter, tripsRouter } from "./routes/index.js";
+import { authRouter, tripsRouter, usersRouter } from "./routes/index.js";
 
 const app = express();
 app.use(express.json());
@@ -17,8 +17,11 @@ app.use('/auth', authRouter);
 // trips routes
 app.use('/trips', tripsRouter);
 
+// trips routes
+app.use('/users', usersRouter);
+
 // home route
-app.get("/", (req, res) => res.send("Public Route"));
+app.get("/", (req, res) => res.send("Trip Planner API"));
 
 app.listen(process.env.PORT, () => console.log(`Server Connected to port ${process.env.PORT}`));
 

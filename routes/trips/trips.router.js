@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import {
     tripPlannerRoute,
-    tripCreateRoute,
+    createTripRoute,
     getAllTripsRoute,
     getTripRoute,
     deleteTripRoute,
@@ -11,12 +11,13 @@ import {
 import { userAuth } from '../../middlewares/index.js';
 
 const tripsRouter = Router();
+tripsRouter.use(userAuth)
 
-tripsRouter.post('/', userAuth, tripCreateRoute);
-tripsRouter.get('/', userAuth, getAllTripsRoute);
-tripsRouter.get('/:id', userAuth, getTripRoute);
-tripsRouter.delete('/:id', userAuth, deleteTripRoute);
-tripsRouter.patch('/:id', userAuth, updateTripRoute);
-tripsRouter.post('/plan', userAuth, tripPlannerRoute);
+tripsRouter.post('/', createTripRoute);
+tripsRouter.get('/', getAllTripsRoute);
+tripsRouter.get('/:id', getTripRoute);
+tripsRouter.delete('/:id', deleteTripRoute);
+tripsRouter.patch('/:id', updateTripRoute);
+tripsRouter.post('/plan', tripPlannerRoute);
 
 export { tripsRouter };
