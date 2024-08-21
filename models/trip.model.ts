@@ -26,9 +26,6 @@ const TripSchema = new Schema({
     numOfTravellers: {
         type: Number,
     },
-    numOfTravellers: {
-        type: Number,
-    },
     modeOfTransport: {
         type: String,
     },

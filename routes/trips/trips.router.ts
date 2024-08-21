@@ -7,8 +7,8 @@ import {
     getTripRoute,
     deleteTripRoute,
     updateTripRoute,
-} from './trips.routes.js';
-import { userAuth } from '../../middlewares/index.js';
+} from './trips.routes';
+import { userAuth } from '../../middlewares';
 
 const tripsRouter = Router();
 tripsRouter.use(userAuth)

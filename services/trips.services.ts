@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 
-import { generateOpenAIQuery } from '../utils/index.js';
-import { Trip } from '../models/index.js';
+import { generateOpenAIQuery } from '../utils';
+import { Trip } from '../models';
 
 export async function generateTripPlanService(tripData) {
     try {
@@ -34,7 +34,7 @@ export async function createTripService(tripData) {
     }
 }
 
-export async function getAllTripsService(userId) {
+export async function getAllTripsService(userId: string) {
     try {
         const trips = await Trip.find({ userId });
         return trips;
@@ -43,7 +43,7 @@ export async function getAllTripsService(userId) {
     }
 }
 
-export async function getTripService(userId, tripId) {
+export async function getTripService(userId: string, tripId: string) {
     try {
         const trip = await Trip.findOne({ userId, _id: tripId });
         return trip;
@@ -52,7 +52,7 @@ export async function getTripService(userId, tripId) {
     }
 }
 
-export async function deleteTripService(userId, tripId) {
+export async function deleteTripService(userId: string, tripId: string) {
     try {
         const trip = await Trip.findOneAndDelete({ userId, _id: tripId });
         return trip;
@@ -61,7 +61,7 @@ export async function deleteTripService(userId, tripId) {
     }
 }
 
-export async function updateTripService(userId, tripId, tripData) {
+export async function updateTripService(userId: string, tripId: string, tripData) {
     try {
         const trip = await Trip.findOneAndUpdate({ userId, _id: tripId }, tripData, { new: true });
         return trip;

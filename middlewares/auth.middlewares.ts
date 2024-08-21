@@ -1,16 +1,18 @@
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from 'express';
 
 import { ACCESS_TOKEN_KEY } from "../consts/consts.js";
 
 // route middleware for checking if the user is of role="admin"
-export function adminAuth(req, res, next) {
+export function adminAuth(req: Request, res: Response, next: NextFunction) {
+    const jwtSecret = process.env.JWT_SECRET ?? '';
     const token = req.cookies[ACCESS_TOKEN_KEY];
 
     if (!token) {
         return res.status(401).send("Not authorized, token not available.");
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, jwtSecret, (err, user) => {
         if (err) {
             return res.status(401).send("Not authorized.");
         }
@@ -25,14 +27,15 @@ export function adminAuth(req, res, next) {
 }
 
 // route middleware for checking if the user is of role="user"
-export function userAuth(req, res, next) {
+export function userAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.cookies[ACCESS_TOKEN_KEY];
+    const jwtSecret = process.env.JWT_SECRET ?? '';
 
     if (!token) {
         return res.status(401).send("Not authorized, token not available.");
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, jwtSecret, (err, user) => {
         if (err) {
             return res.status(401).send("Not authorized.");
         }

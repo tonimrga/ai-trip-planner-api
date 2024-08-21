@@ -1,6 +1,6 @@
-import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts/consts.js';
-import { loginUserService, registerUserService } from '../../services/index.js';
-import { createJWTToken } from '../../utils/index.js';
+import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts/consts';
+import { loginUserService, registerUserService } from '../../services';
+import { createJWTToken } from '../../utils';
 
 // POST /auth/register
 export async function registerUserRoute(req, res) {

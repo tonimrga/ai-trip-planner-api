@@ -1,5 +1,7 @@
+import { TripData } from "../types";
+
 // Function for generating a OpenAI query for a trip itinerary
-export function generateOpenAIQuery(tripData) {
+export function generateOpenAIQuery(tripData: TripData): string {
     const {
         destination = '',
         startDate = '',
@@ -19,7 +21,7 @@ export function generateOpenAIQuery(tripData) {
 };
 
 // Function for building a tripData object that is commonly used in trips service functions
-export function prepareTripDataObject(reqBody) {
+export function prepareTripDataObject(reqBody): TripData {
     const {
         title,
         itinerary,
