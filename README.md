@@ -4,4 +4,4 @@ To run the project run:
 
 - npm install
 - add needed env variables
-- npm run start
+- npm run dev
