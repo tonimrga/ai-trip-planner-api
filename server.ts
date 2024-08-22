@@ -1,13 +1,17 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import { connectDB } from './config';
 import { authRouter, tripsRouter, usersRouter } from './routes';
 
+// server configuration
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 connectDB();
 
