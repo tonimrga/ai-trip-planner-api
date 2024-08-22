@@ -1,29 +1,29 @@
-import { Types } from "mongoose";
-import { Request } from "express"
+import { Types } from 'mongoose';
+import { Request } from 'express';
 
 export interface ITrip {
-    title: string;
-    itinerary?: string;
-    destination: string;
-    startDate: Date;
-    endDate: Date,
-    numOfTravellers?: number,
-    modeOfTransport?: string,
-    userId?: Types.ObjectId,
+  title: string;
+  itinerary?: string;
+  destination: string;
+  startDate: Date;
+  endDate: Date;
+  numOfTravellers?: number;
+  modeOfTransport?: string;
+  userId?: Types.ObjectId;
 }
 
 export interface IUser {
-    username: string;
-    password: string;
-    role: string;
+  username: string;
+  password: string;
+  role: string;
 }
 
 export interface IUserTokenPayload {
-    id: Types.ObjectId;
-    username: string;
-    role: string;
+  id: Types.ObjectId;
+  username: string;
+  role: string;
 }
 
 export interface IRequest extends Request {
-    userId?: string
+  userId?: string;
 }

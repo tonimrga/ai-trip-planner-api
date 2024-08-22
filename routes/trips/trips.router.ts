@@ -1,17 +1,17 @@
 import { Router } from 'express';
 
 import {
-    tripPlannerRoute,
-    createTripRoute,
-    getAllTripsRoute,
-    getTripRoute,
-    deleteTripRoute,
-    updateTripRoute,
+  tripPlannerRoute,
+  createTripRoute,
+  getAllTripsRoute,
+  getTripRoute,
+  deleteTripRoute,
+  updateTripRoute
 } from './trips.routes';
 import { userAuth } from '../../middlewares';
 
 const tripsRouter = Router();
-tripsRouter.use(userAuth)
+tripsRouter.use(userAuth);
 
 tripsRouter.post('/', createTripRoute);
 tripsRouter.get('/', getAllTripsRoute);
