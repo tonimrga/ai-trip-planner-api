@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-import { JWT_TOKEN_MAX_AGE } from "../consts/consts.js";
+import { JWT_TOKEN_MAX_AGE } from "../consts";
+import { IUserTokenPayload } from "../types";
 
 // hashing function used for passwords
 export async function hashPassword(password: string) {
@@ -25,8 +26,8 @@ export async function comparePasswords(password: string, userPassword: string) {
 }
 
 // function for creating the JWT with user data in it
-export function createJWTToken(user) {
-    const { _id: id, username, role } = user;
+export function createJWTToken(user: IUserTokenPayload) {
+    const { id, username, role } = user;
     const jwtSecret = process.env.JWT_SECRET ?? '';
 
     const token = jwt.sign(

@@ -5,8 +5,8 @@ import {
     getUserRoute,
     deleteUserRoute,
     updateUserRoleRoute
-} from "./users.routes.js";
-import { adminAuth } from '../../middlewares/index.js';
+} from "./users.routes";
+import { adminAuth } from '../../middlewares';
 
 const usersRouter = Router();
 usersRouter.use(adminAuth)

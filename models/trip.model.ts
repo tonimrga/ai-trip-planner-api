@@ -1,9 +1,11 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
+
+import { ITrip } from "../types";
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema;
 
-const TripSchema = new Schema({
+const TripSchema = new Schema<ITrip>({
     title: {
         type: String,
         required: true,

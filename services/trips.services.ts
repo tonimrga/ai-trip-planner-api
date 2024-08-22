@@ -2,8 +2,9 @@ import { OpenAI } from 'openai';
 
 import { generateOpenAIQuery } from '../utils';
 import { Trip } from '../models';
+import { ITrip } from '../types';
 
-export async function generateTripPlanService(tripData) {
+export async function generateTripPlanService(tripData: ITrip) {
     try {
         const openai = new OpenAI({
             apiKey: process.env.OPEN_AI_KEY
@@ -25,9 +26,9 @@ export async function generateTripPlanService(tripData) {
     }
 }
 
-export async function createTripService(tripData) {
+export async function createTripService(userId: string, tripData: ITrip) {
     try {
-        const trip = await Trip.create(tripData);
+        const trip = await Trip.create({ ...tripData, userId });
         return trip;
     } catch (err) {
         throw 'Error creating a trip.';
@@ -61,7 +62,7 @@ export async function deleteTripService(userId: string, tripId: string) {
     }
 }
 
-export async function updateTripService(userId: string, tripId: string, tripData) {
+export async function updateTripService(userId: string, tripId: string, tripData: ITrip) {
     try {
         const trip = await Trip.findOneAndUpdate({ userId, _id: tripId }, tripData, { new: true });
         return trip;
