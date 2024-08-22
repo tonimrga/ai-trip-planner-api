@@ -1,2 +1,2 @@
-export { User } from './user.model'
-export { Trip } from './trip.model'
+export { User } from './user.model';
+export { Trip } from './trip.model';

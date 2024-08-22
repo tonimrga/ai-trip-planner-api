@@ -1,1 +1,1 @@
-export { adminAuth, userAuth } from './auth.middlewares'
+export { adminAuth, userAuth } from './auth.middlewares';
