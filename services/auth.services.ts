@@ -1,6 +1,7 @@
 import { User } from '../models';
 import { comparePasswords, hashPassword } from '../utils';
 
+// Service function for logging in the user
 export async function loginUserService(username: string, password: string) {
   try {
     const user = await User.findOne({ username });
@@ -16,6 +17,7 @@ export async function loginUserService(username: string, password: string) {
   }
 }
 
+// Service function for registering the user
 export async function registerUserService(username: string, password: string) {
   try {
     const hash = await hashPassword(password);

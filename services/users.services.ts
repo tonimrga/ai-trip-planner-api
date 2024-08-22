@@ -1,5 +1,6 @@
 import { User } from '../models';
 
+// Service function for getting all users
 export async function getAllUsersService() {
   try {
     const users = await User.find();
@@ -10,6 +11,7 @@ export async function getAllUsersService() {
   }
 }
 
+// Service function for getting a single user
 export async function getUserService(userId: string) {
   try {
     const user = await User.findOne({ _id: userId });
@@ -20,6 +22,7 @@ export async function getUserService(userId: string) {
   }
 }
 
+// Service function for deleting a user
 export async function deleteUserService(userId: string) {
   try {
     const user = await User.findOneAndDelete({ _id: userId });
@@ -30,6 +33,7 @@ export async function deleteUserService(userId: string) {
   }
 }
 
+// Service function for changing a user role
 export async function updateUserRoleService(userId: string, role: string) {
   try {
     const user = await User.findOneAndUpdate({ _id: userId }, { role }, { new: true });

@@ -11,8 +11,11 @@ import {
 import { userAuth } from '../../middlewares';
 
 const tripsRouter = Router();
+
+// Trips routes should only be accessed by logged in users with "user" role
 tripsRouter.use(userAuth);
 
+// Trips routes
 tripsRouter.post('/', createTripRoute);
 tripsRouter.get('/', getAllTripsRoute);
 tripsRouter.get('/:id', getTripRoute);

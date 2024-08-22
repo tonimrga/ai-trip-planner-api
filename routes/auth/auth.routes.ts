@@ -4,7 +4,7 @@ import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts';
 import { loginUserService, registerUserService } from '../../services';
 import { createJWTToken } from '../../utils';
 
-// POST /auth/register
+// POST /auth/register - register the user and send a jwt token in a cookie
 export async function registerUserRoute(req: Request, res: Response) {
   const { username, password } = req.body;
 
@@ -38,7 +38,7 @@ export async function registerUserRoute(req: Request, res: Response) {
   }
 }
 
-// POST /auth/login
+// POST /auth/login - login the user and send a jwt token in a cookie
 export async function loginUserRoute(req: Request, res: Response) {
   const { username, password } = req.body;
 
@@ -73,7 +73,7 @@ export async function loginUserRoute(req: Request, res: Response) {
   }
 }
 
-// POST /auth/logout
+// POST /auth/logout - logout the user and remove the jwt cookie
 export function logoutUserRoute(req: Request, res: Response) {
   res.cookie(ACCESS_TOKEN_KEY, '', { maxAge: 1 });
   res.send('User logged out.');

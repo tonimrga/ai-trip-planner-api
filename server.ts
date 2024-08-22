@@ -27,8 +27,12 @@ app.use('/users', usersRouter);
 // home route
 app.get('/', (req, res) => res.send('Trip Planner API'));
 
-const server = app.listen(process.env.PORT, () => console.log(`Server Connected to port ${process.env.PORT}`));
+// server start
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server Connected to port ${process.env.PORT}`)
+);
 
+// global error handler
 process.on('unhandledRejection', (err) => {
   console.log(`An error occurred: ${err}`);
   server.close(() => process.exit(1));

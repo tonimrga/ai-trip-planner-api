@@ -10,7 +10,7 @@ import {
 } from '../../services';
 import { IRequest } from '../../types';
 
-// POST /trips/plan
+// POST /trips/plan - get trip plan from OpenAI service
 export async function tripPlannerRoute(req: IRequest, res: Response) {
   try {
     const tripPlan = await generateTripPlanService(req.body);
@@ -20,7 +20,7 @@ export async function tripPlannerRoute(req: IRequest, res: Response) {
   }
 }
 
-// POST /trips
+// POST /trips - create a trip
 export async function createTripRoute(req: IRequest, res: Response) {
   try {
     const userId = req.userId ?? '';
@@ -31,7 +31,7 @@ export async function createTripRoute(req: IRequest, res: Response) {
   }
 }
 
-// GET /trips
+// GET /trips - get all user trips
 export async function getAllTripsRoute(req: IRequest, res: Response) {
   try {
     const userId = req.userId ?? '';
@@ -42,7 +42,7 @@ export async function getAllTripsRoute(req: IRequest, res: Response) {
   }
 }
 
-// GET /trips/:id
+// GET /trips/:id - get a single user trip
 export async function getTripRoute(req: IRequest, res: Response) {
   try {
     const tripId = req.params.id;
@@ -54,7 +54,7 @@ export async function getTripRoute(req: IRequest, res: Response) {
   }
 }
 
-// DELETE /trips/:id
+// DELETE /trips/:id - delete a single user trip
 export async function deleteTripRoute(req: IRequest, res: Response) {
   try {
     const tripId = req.params.id;
@@ -66,7 +66,7 @@ export async function deleteTripRoute(req: IRequest, res: Response) {
   }
 }
 
-// PATCH /trips/:id
+// PATCH /trips/:id - update a single user trip
 export async function updateTripRoute(req: IRequest, res: Response) {
   const tripId = req.params.id;
   const userId = req.userId ?? '';

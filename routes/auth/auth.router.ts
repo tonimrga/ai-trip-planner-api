@@ -4,6 +4,7 @@ import { registerUserRoute, loginUserRoute, logoutUserRoute } from './auth.route
 
 const authRouter = Router();
 
+// Auth routes
 authRouter.post('/register', registerUserRoute);
 authRouter.post('/login', loginUserRoute);
 authRouter.post('/logout', logoutUserRoute);

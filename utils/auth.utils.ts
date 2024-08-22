@@ -10,8 +10,8 @@ export async function hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     return hash;
-  } catch (e) {
-    console.log('Error hashing password.', e);
+  } catch (err) {
+    console.log('Error hashing password.', err);
   }
 }
 
@@ -20,8 +20,8 @@ export async function comparePasswords(password: string, userPassword: string) {
   try {
     const result = await bcrypt.compare(password, userPassword);
     return result;
-  } catch (e) {
-    console.log('Error comparing password.', e);
+  } catch (err) {
+    console.log('Error comparing password.', err);
   }
 }
 

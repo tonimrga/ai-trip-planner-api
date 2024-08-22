@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
 
-import { deleteUserService, getAllUsersService, getUserService, updateUserRoleService } from '../../services';
+import {
+  deleteUserService,
+  getAllUsersService,
+  getUserService,
+  updateUserRoleService
+} from '../../services';
 
-// GET /users
+// GET /users - get all users
 export async function getAllUsersRoute(req: Request, res: Response) {
   try {
     const users = await getAllUsersService();
@@ -12,7 +17,7 @@ export async function getAllUsersRoute(req: Request, res: Response) {
   }
 }
 
-// GET /users/:id
+// GET /users/:id - get a single user
 export async function getUserRoute(req: Request, res: Response) {
   try {
     const user = await getUserService(req.params.id);
@@ -22,7 +27,7 @@ export async function getUserRoute(req: Request, res: Response) {
   }
 }
 
-// DELETE /users/:id
+// DELETE /users/:id - delete a user
 export async function deleteUserRoute(req: Request, res: Response) {
   try {
     const user = await deleteUserService(req.params.id);
@@ -32,7 +37,7 @@ export async function deleteUserRoute(req: Request, res: Response) {
   }
 }
 
-// POST /users/:id/role
+// POST /users/:id/role - update the user role
 export async function updateUserRoleRoute(req: Request, res: Response) {
   try {
     console.log(req.body);

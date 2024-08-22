@@ -2,7 +2,13 @@ import { ITrip } from '../types';
 
 // Function for generating a OpenAI query for a trip itinerary
 export function generateOpenAIQuery(tripData: ITrip): string {
-  const { destination = '', startDate = '', endDate = '', numOfTravellers = '', modeOfTransport = '' } = tripData;
+  const {
+    destination = '',
+    startDate = '',
+    endDate = '',
+    numOfTravellers = '',
+    modeOfTransport = ''
+  } = tripData;
 
   return `I'd like your help to create a simple trip itinerary. 
     Destination is ${destination}. 

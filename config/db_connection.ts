@@ -1,5 +1,6 @@
 import { connect } from 'mongoose';
 
+// DB connection function
 export async function connectDB() {
   try {
     await connect(process.env.DB_URL ?? '');
