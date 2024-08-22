@@ -1,19 +1,26 @@
-import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts/consts.js';
-import { loginUserService, registerUserService } from '../../services/index.js';
-import { createJWTToken } from '../../utils/index.js';
+import { Request, Response } from 'express';
+
+import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts';
+import { loginUserService, registerUserService } from '../../services';
+import { createJWTToken } from '../../utils';
 
 // POST /auth/register
-export async function registerUserRoute(req, res) {
+export async function registerUserRoute(req: Request, res: Response) {
     const { username, password } = req.body;
 
     if (!username || !password) {
         return res.status(400).send("Username or password are not present.");
     }
 
+    if (password.length < 6) {
+        return res.status(400).send("Password should be 6 characters or more.");
+    }
+
     try {
         const user = await registerUserService(username, password);
 
-        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(user), {
+        const tokenPayload = { id: user._id, username: user.username, role: user.role };
+        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(tokenPayload), {
             secure: true,
             httpOnly: true,
             maxAge: JWT_TOKEN_MAX_AGE * 1000, // 3hrs in ms
@@ -28,7 +35,7 @@ export async function registerUserRoute(req, res) {
 }
 
 // POST /auth/login
-export async function loginUserRoute(req, res) {
+export async function loginUserRoute(req: Request, res: Response) {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -40,9 +47,11 @@ export async function loginUserRoute(req, res) {
 
         if (!user) {
             res.status(400).send("Username or password are incorrect.");
+            return;
         }
 
-        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(user), {
+        const tokenPayload = { id: user._id, username: user.username, role: user.role };
+        res.cookie(ACCESS_TOKEN_KEY, createJWTToken(tokenPayload), {
             secure: true,
             httpOnly: true,
             maxAge: JWT_TOKEN_MAX_AGE * 1000, // 3hrs in ms
@@ -57,7 +66,7 @@ export async function loginUserRoute(req, res) {
 }
 
 // POST /auth/logout
-export function logoutUserRoute(req, res) {
-    res.cookie(ACCESS_TOKEN_KEY, "", { maxAge: "1" });
+export function logoutUserRoute(req: Request, res: Response) {
+    res.cookie(ACCESS_TOKEN_KEY, "", { maxAge: 1 });
     res.send('User logged out.');
 }

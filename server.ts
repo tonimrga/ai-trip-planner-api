@@ -2,8 +2,8 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 
-import { connectDB } from "./config/index.js";
-import { authRouter, tripsRouter, usersRouter } from "./routes/index.js";
+import { connectDB } from "./config";
+import { authRouter, tripsRouter, usersRouter } from "./routes";
 
 const app = express();
 app.use(express.json());
@@ -23,9 +23,9 @@ app.use('/users', usersRouter);
 // home route
 app.get("/", (req, res) => res.send("Trip Planner API"));
 
-app.listen(process.env.PORT, () => console.log(`Server Connected to port ${process.env.PORT}`));
+const server = app.listen(process.env.PORT, () => console.log(`Server Connected to port ${process.env.PORT}`));
 
 process.on("unhandledRejection", err => {
-    console.log(`An error occurred: ${err.message}`)
+    console.log(`An error occurred: ${err}`)
     server.close(() => process.exit(1))
 });

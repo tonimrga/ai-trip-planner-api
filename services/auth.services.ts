@@ -1,7 +1,7 @@
-import { User } from '../models/index.js';
-import { comparePasswords, hashPassword } from '../utils/index.js';
+import { User } from '../models';
+import { comparePasswords, hashPassword } from '../utils';
 
-export async function loginUserService(username, password) {
+export async function loginUserService(username: string, password: string) {
     try {
         const user = await User.findOne({ username });
         if (!user) return;
@@ -15,7 +15,7 @@ export async function loginUserService(username, password) {
     }
 }
 
-export async function registerUserService(username, password) {
+export async function registerUserService(username: string, password: string) {
     try {
         const hash = await hashPassword(password);
         const user = await User.create({

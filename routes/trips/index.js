@@ -1,1 +1,0 @@
-export { tripsRouter } from './trips.router.js';

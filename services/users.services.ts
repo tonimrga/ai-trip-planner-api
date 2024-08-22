@@ -1,4 +1,4 @@
-import { User } from '../models/index.js';
+import { User } from '../models';
 
 export async function getAllUsersService() {
     try {
@@ -9,7 +9,7 @@ export async function getAllUsersService() {
     }
 }
 
-export async function getUserService(userId) {
+export async function getUserService(userId: string) {
     try {
         const user = await User.findOne({ _id: userId });
         return user;
@@ -18,7 +18,7 @@ export async function getUserService(userId) {
     }
 }
 
-export async function deleteUserService(userId) {
+export async function deleteUserService(userId: string) {
     try {
         const user = await User.findOneAndDelete({ _id: userId });
         return user;
@@ -27,7 +27,7 @@ export async function deleteUserService(userId) {
     }
 }
 
-export async function updateUserRoleService(userId, role) {
+export async function updateUserRoleService(userId: string, role: string) {
     try {
         const user = await User.findOneAndUpdate({ _id: userId }, { role }, { new: true });
         return user;

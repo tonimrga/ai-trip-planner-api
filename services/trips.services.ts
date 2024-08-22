@@ -1,9 +1,10 @@
 import { OpenAI } from 'openai';
 
-import { generateOpenAIQuery } from '../utils/index.js';
-import { Trip } from '../models/index.js';
+import { generateOpenAIQuery } from '../utils';
+import { Trip } from '../models';
+import { ITrip } from '../types';
 
-export async function generateTripPlanService(tripData) {
+export async function generateTripPlanService(tripData: ITrip) {
     try {
         const openai = new OpenAI({
             apiKey: process.env.OPEN_AI_KEY
@@ -25,16 +26,16 @@ export async function generateTripPlanService(tripData) {
     }
 }
 
-export async function createTripService(tripData) {
+export async function createTripService(userId: string, tripData: ITrip) {
     try {
-        const trip = await Trip.create(tripData);
+        const trip = await Trip.create({ ...tripData, userId });
         return trip;
     } catch (err) {
         throw 'Error creating a trip.';
     }
 }
 
-export async function getAllTripsService(userId) {
+export async function getAllTripsService(userId: string) {
     try {
         const trips = await Trip.find({ userId });
         return trips;
@@ -43,7 +44,7 @@ export async function getAllTripsService(userId) {
     }
 }
 
-export async function getTripService(userId, tripId) {
+export async function getTripService(userId: string, tripId: string) {
     try {
         const trip = await Trip.findOne({ userId, _id: tripId });
         return trip;
@@ -52,7 +53,7 @@ export async function getTripService(userId, tripId) {
     }
 }
 
-export async function deleteTripService(userId, tripId) {
+export async function deleteTripService(userId: string, tripId: string) {
     try {
         const trip = await Trip.findOneAndDelete({ userId, _id: tripId });
         return trip;
@@ -61,7 +62,7 @@ export async function deleteTripService(userId, tripId) {
     }
 }
 
-export async function updateTripService(userId, tripId, tripData) {
+export async function updateTripService(userId: string, tripId: string, tripData: ITrip) {
     try {
         const trip = await Trip.findOneAndUpdate({ userId, _id: tripId }, tripData, { new: true });
         return trip;
