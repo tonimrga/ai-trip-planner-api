@@ -26,13 +26,18 @@ export async function comparePasswords(password: string, userPassword: string) {
 }
 
 // function for creating the JWT with user data in it
-export function createJWTToken(user: IUserTokenPayload) {
-  const { id, username, role } = user;
+export function createJWTToken(tokenPayload: IUserTokenPayload) {
+  const { id, username, email, role } = tokenPayload;
   const jwtSecret = process.env.JWT_SECRET ?? '';
 
-  const token = jwt.sign({ id, username, role }, jwtSecret, {
+  const token = jwt.sign({ id, username, email, role }, jwtSecret, {
     expiresIn: JWT_TOKEN_MAX_AGE
   });
 
   return token;
 }
+
+export const validateEmail = (email: string): boolean => {
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  return emailRegex.test(email);
+};

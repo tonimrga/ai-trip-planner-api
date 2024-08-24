@@ -18,12 +18,13 @@ export async function loginUserService(username: string, password: string) {
 }
 
 // Service function for registering the user
-export async function registerUserService(username: string, password: string) {
+export async function registerUserService(username: string, password: string, email: string) {
   try {
     const hash = await hashPassword(password);
     const user = await User.create({
       username,
-      password: hash
+      password: hash,
+      email
     });
 
     return user;

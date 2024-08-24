@@ -6,10 +6,10 @@ import { createJWTToken } from '../../utils';
 
 // POST /auth/register - register the user and send a jwt token in a cookie
 export async function registerUserRoute(req: Request, res: Response) {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).send('Username or password are not present.');
+  if (!username || !password || !email) {
+    return res.status(400).send('Username, email or password are not present.');
   }
 
   if (password.length < 6) {
@@ -17,22 +17,21 @@ export async function registerUserRoute(req: Request, res: Response) {
   }
 
   try {
-    const user = await registerUserService(username, password);
+    const user = await registerUserService(username, password, email);
 
-    const tokenPayload = {
+    const payload = {
       id: user._id,
       username: user.username,
+      email: user.email,
       role: user.role
     };
-    res.cookie(ACCESS_TOKEN_KEY, createJWTToken(tokenPayload), {
+
+    res.cookie(ACCESS_TOKEN_KEY, createJWTToken(payload), {
       secure: true,
       httpOnly: true,
       maxAge: JWT_TOKEN_MAX_AGE * 1000 // 3hrs in ms
     });
-    res.status(200).json({
-      username: user.username,
-      role: user.role
-    });
+    res.status(200).json(payload);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -54,20 +53,19 @@ export async function loginUserRoute(req: Request, res: Response) {
       return;
     }
 
-    const tokenPayload = {
+    const payload = {
       id: user._id,
       username: user.username,
+      email: user.email,
       role: user.role
     };
-    res.cookie(ACCESS_TOKEN_KEY, createJWTToken(tokenPayload), {
+
+    res.cookie(ACCESS_TOKEN_KEY, createJWTToken(payload), {
       secure: true,
       httpOnly: true,
       maxAge: JWT_TOKEN_MAX_AGE * 1000 // 3hrs in ms
     });
-    res.status(200).json({
-      username: user.username,
-      role: user.role
-    });
+    res.status(200).json(payload);
   } catch (err) {
     res.status(400).send(err);
   }

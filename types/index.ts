@@ -16,11 +16,13 @@ export interface IUser {
   username: string;
   password: string;
   role: string;
+  email: string;
 }
 
 export interface IUserTokenPayload {
   id: Types.ObjectId;
   username: string;
+  email: string;
   role: string;
 }
 
