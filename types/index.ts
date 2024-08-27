@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { Request } from 'express';
 
 export interface ITrip {
-  title: string;
+  title?: string;
   itinerary?: string;
   destination: string;
   startDate: Date;
