@@ -33,3 +33,14 @@ export async function registerUserService(username: string, password: string, em
     throw 'Error creating a user.';
   }
 }
+
+// Service function for getting the logged in user data
+export async function getLoggedInUserDataService(userId: string) {
+  try {
+    const user = await User.findOne({ _id: userId });
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw 'Error getting the user data.';
+  }
+}

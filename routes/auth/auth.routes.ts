@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 
 import { JWT_TOKEN_MAX_AGE, ACCESS_TOKEN_KEY } from '../../consts';
-import { loginUserService, registerUserService } from '../../services';
+import { loginUserService, registerUserService, getLoggedInUserDataService } from '../../services';
 import { createJWTToken } from '../../utils';
+import { IRequest } from '../../types';
 
 // POST /auth/register - register the user and send a jwt token in a cookie
 export async function registerUserRoute(req: Request, res: Response) {
@@ -66,6 +67,28 @@ export async function loginUserRoute(req: Request, res: Response) {
       maxAge: JWT_TOKEN_MAX_AGE * 1000 // 3hrs in ms
     });
     res.status(200).json(payload);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+}
+
+// GET /auth/user - get the currently logged in user data
+export async function getUserData(req: IRequest, res: Response) {
+  try {
+    const userId = req.userId ?? '';
+    const user = await getLoggedInUserDataService(userId);
+
+    if (!user) {
+      res.status(400).send('User is not found.');
+      return;
+    }
+
+    res.status(200).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role
+    });
   } catch (err) {
     res.status(400).send(err);
   }
