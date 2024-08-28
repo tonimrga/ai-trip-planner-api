@@ -13,8 +13,8 @@ import { IRequest } from '../../types';
 // POST /trips/plan - get trip plan from OpenAI service
 export async function tripPlannerRoute(req: IRequest, res: Response) {
   try {
-    const tripPlan = await generateTripPlanService(req.body);
-    res.send(tripPlan);
+    const itinerary = await generateTripPlanService(req.body);
+    res.status(200).json({ itinerary });
   } catch (err) {
     res.status(400).send(err);
   }
@@ -25,7 +25,7 @@ export async function createTripRoute(req: IRequest, res: Response) {
   try {
     const userId = req.userId ?? '';
     const trip = await createTripService(userId, req.body);
-    res.send(trip);
+    res.status(200).json(trip);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -36,7 +36,7 @@ export async function getAllTripsRoute(req: IRequest, res: Response) {
   try {
     const userId = req.userId ?? '';
     const trips = await getAllTripsService(userId);
-    res.send(trips);
+    res.status(200).json(trips);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -48,7 +48,7 @@ export async function getTripRoute(req: IRequest, res: Response) {
     const tripId = req.params.id;
     const userId = req.userId ?? '';
     const trip = await getTripService(userId, tripId);
-    res.send(trip);
+    res.status(200).json(trip);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -60,7 +60,7 @@ export async function deleteTripRoute(req: IRequest, res: Response) {
     const tripId = req.params.id;
     const userId = req.userId ?? '';
     const trip = await deleteTripService(userId, tripId);
-    res.send(trip);
+    res.status(200).json(trip);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -73,7 +73,7 @@ export async function updateTripRoute(req: IRequest, res: Response) {
 
   try {
     const trip = await updateTripService(userId, tripId, req.body);
-    res.send(trip);
+    res.status(200).json(trip);
   } catch (err) {
     res.status(400).send(err);
   }

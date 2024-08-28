@@ -11,7 +11,7 @@ import {
 export async function getAllUsersRoute(req: Request, res: Response) {
   try {
     const users = await getAllUsersService();
-    res.send(users);
+    res.status(200).json(users);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -21,7 +21,7 @@ export async function getAllUsersRoute(req: Request, res: Response) {
 export async function getUserRoute(req: Request, res: Response) {
   try {
     const user = await getUserService(req.params.id);
-    res.send(user);
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -31,7 +31,7 @@ export async function getUserRoute(req: Request, res: Response) {
 export async function deleteUserRoute(req: Request, res: Response) {
   try {
     const user = await deleteUserService(req.params.id);
-    res.send(user);
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -42,7 +42,7 @@ export async function updateUserRoleRoute(req: Request, res: Response) {
   try {
     console.log(req.body);
     const user = await updateUserRoleService(req.params.id, req.body.role);
-    res.send(user);
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).send(err);
   }
