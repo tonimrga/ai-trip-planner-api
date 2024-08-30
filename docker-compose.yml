@@ -1,0 +1,26 @@
+services:
+  mongoDb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - trip-planner-app
+    volumes:
+      - mongo-data:/data/db
+
+  trip-planner-server:
+    build: .
+    ports:
+      - '3000:3000'
+    networks:
+      - trip-planner-app
+    depends_on:
+      - mongoDb
+
+networks:
+  trip-planner-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
