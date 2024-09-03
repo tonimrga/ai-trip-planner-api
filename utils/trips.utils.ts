@@ -17,5 +17,6 @@ export function generateOpenAIQuery(tripData: ITrip): string {
     Number of travellers is ${numOfTravellers}. 
     Mode of transportation is ${modeOfTransport}. 
     Can you create a day-by-day itinerary that includes must-see attractions, 
-    recommended restaurants, and any side trips a person could take there?`;
+    recommended restaurants, and any side trips a person could take there? 
+    The answer should only contain an itinerary without intro and outro text.`;
 }
