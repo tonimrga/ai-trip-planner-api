@@ -29,7 +29,12 @@ const TripSchema = new Schema<ITrip>({
     type: Number
   },
   modeOfTransport: {
-    type: String
+    type: String,
+    enum: ['bus', 'aeroplane', 'car', 'train', 'bicycle']
+  },
+  interests: {
+    type: [String],
+    enum: ['culture', 'food', 'sports', 'museums', 'history']
   },
   userId: {
     type: ObjectId,

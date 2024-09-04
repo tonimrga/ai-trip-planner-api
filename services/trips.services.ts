@@ -11,12 +11,14 @@ export async function generateTripPlanService(tripData: ITrip) {
       apiKey: process.env.OPEN_AI_KEY
     });
 
+    const query = generateOpenAIQuery(tripData);
+
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         {
           role: 'user',
-          content: generateOpenAIQuery(tripData)
+          content: query
         }
       ]
     });

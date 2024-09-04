@@ -9,6 +9,7 @@ export interface ITrip {
   endDate: Date;
   numOfTravellers?: number;
   modeOfTransport?: string;
+  interests?: string[];
   userId?: Types.ObjectId;
 }
 
