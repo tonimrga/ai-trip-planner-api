@@ -42,6 +42,8 @@ const TripSchema = new Schema<ITrip>({
   }
 });
 
+TripSchema.index({ title: 'text' });
+
 const Trip = mongoose.model('trip', TripSchema);
 
 export { Trip };

@@ -35,7 +35,8 @@ export async function createTripRoute(req: IRequest, res: Response) {
 export async function getAllTripsRoute(req: IRequest, res: Response) {
   try {
     const userId = req.userId ?? '';
-    const trips = await getAllTripsService(userId);
+    const search = req.query.search as string;
+    const trips = await getAllTripsService(userId, search as string);
     res.status(200).json(trips);
   } catch (err) {
     res.status(400).send(err);

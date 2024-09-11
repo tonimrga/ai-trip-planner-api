@@ -42,9 +42,10 @@ export async function createTripService(userId: string, tripData: ITrip) {
 }
 
 // Service function for getting all of the trips made by a single user
-export async function getAllTripsService(userId: string) {
+export async function getAllTripsService(userId: string, search?: string) {
   try {
-    const trips = await Trip.find({ userId });
+    const query = { userId, ...(search && { $text: { $search: search } }) };
+    const trips = await Trip.find(query).sort({ startDate: 'asc' });
     return trips;
   } catch (err) {
     console.log(err);

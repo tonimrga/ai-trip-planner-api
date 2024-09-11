@@ -46,7 +46,7 @@ export function generateOpenAIQuery(tripData: ITrip): string {
 
   query += `Can you create a day-by-day itinerary based on my interests that includes must-see attractions, 
     recommended sights, and any side trips a person could take there? 
-    The answer should only contain an itinerary without intro and outro text.`;
+    The answer should only contain an itinerary without intro and outro text. Use only new lines for formatting.`;
 
   return query;
 }
