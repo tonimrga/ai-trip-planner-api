@@ -45,7 +45,7 @@ export async function createTripService(userId: string, tripData: ITrip) {
 export async function getAllTripsService(userId: string, search?: string) {
   try {
     const query = { userId, ...(search && { $text: { $search: search } }) };
-    const trips = await Trip.find(query).sort({ startDate: 'asc' });
+    const trips = await Trip.find(query).sort({ createdAt: 'desc' });
     return trips;
   } catch (err) {
     console.log(err);
